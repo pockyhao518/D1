@@ -18,15 +18,19 @@ function sum(...args){
 // console.log(sum(1, 2, 3, 4) === 10);
 // console.log(sum(1, 2, 3, 4, 5) === 15);
 
-Function.prototype.myBind = function(ctx){
-    let bindarg = Array.from(arguments);
+// Function.prototype.myBind = function(ctx){
+//     let bindarg = Array.from(arguments).slice(1);
+//     let fn = this;
+//     return function(){
+//         let callarg = Array.from(arguments).slice(0);
+//         return fn.apply(ctx,bindarg.concat(callarg))
+//     }
+// }
+
+Function.prototype.myBind = function(ctx, ...bindargs){
     let fn = this;
-    
-    return function(){
-        let callarg = Array.from(arguments);
-        callarg.forEach(el=>{
-            return fn.apply(ctx,bindarg.concat(el))
-        })
+    return function(...callarg){
+        return fn.apply(ctx, bindargs.concat(callarg))
     }
 }
 
